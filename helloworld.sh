@@ -1,0 +1,3 @@
+hostname
+pwd
+date
