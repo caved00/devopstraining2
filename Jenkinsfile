@@ -81,14 +81,6 @@ pipeline {
         } */
 
 
-        /* stage('Docker build image') { 
-            steps { 
-                script { 
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-                }
-            } 
-        } */
-
 		stage('Docker build image and login to docker hub') {
 
 			steps {
@@ -97,13 +89,13 @@ pipeline {
 			}
 		}
 
-/*		stage('Login') {
+		stage('Push image to Dockerhub') {
 
 			steps {
 				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
-*/
+
 
 /*        stage('Docker push image to Dockerhub') {
             steps {
@@ -120,16 +112,6 @@ pipeline {
             }
         }
     
-    /* Push to image registry 
-        stage('Docker push image to ACR') {
-            steps {
-                script {
-                    echo "albBuild.publishDockerImage(registry, registryCredential, dockerImage, imageURI, removeAfterPublish = RemoveImageOnPublish)"
-                }
-            }
-        } */
-
-
         
         
         /*
