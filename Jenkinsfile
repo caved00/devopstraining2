@@ -25,62 +25,40 @@ pipeline {
     }
    
     stages {
-        stage('Build, Test & SonarQube Analysis') {
-        /* when { allOf { environment name: 'application_type', value: 'java' } } */
-            steps {
-                script {
-                    echo "${env.imageURI}"
-                    echo "albBuild.sonarMavenExec()"
-                }
-            }
-        }
+        	stage('Build, Test & SonarQube Analysis') {
+            		steps {
+                		script {
+                    			echo "${env.imageURI}"
+                    			echo "albBuild.sonarMavenExec()"
+                		}
+            		}
+        	}
         
-        stage('Build, Test, Coverage and sonar') {
-        /* when { allOf { environment name: 'application_type', value: 'nodejs' } } */
-            steps {
-                script {
-                    echo "albBuild.npmHeadless()"
-                }
-            }
-        }
+        	stage('Build, Test, Coverage and sonar') {
+            		steps {
+                		script {
+                    			echo "albBuild.npmHeadless()"
+                		}
+            		}
+        	}
         
-        stage('SonarQube Quality Gate') {
-        /* when { allOf { environment name: 'application_type', value: 'java' } } */
-            steps {
-                script {
-                    echo "albBuild.sonarQualityGate(AbortOnFail)"
-                }
-            }
-        }
+        	stage('SonarQube Quality Gate') {
+            		steps {
+                		script {
+                    			echo "albBuild.sonarQualityGate(AbortOnFail)"
+                		}
+            		}
+        	}
         
-        stage('Veracode Scan') {
-        /* when { allOf { environment name: 'application_type', value: 'java' } } */
-            steps {
-                script {
-                    echo "albBuild.veraCodeScanwar(VeraAppid, AbortOnFail, VeraAppName)"
-                }
-            }
-        }
+        	stage('Veracode nodejs Scan') {
+            		steps {
+                		script {
+                    			echo "sh tar -czvf node_modules.tar.gz node_modules"
+                    			echo "albBuild.veraCodeScannj(VeraAppid, AbortOnFail, VeraAppName)"
+                		}
+            		}
+        	}
         
-        stage('Veracode nodejs Scan') {
-        /* when { allOf { environment name: 'application_type', value: 'nodejs' } } */
-            steps {
-                script {
-                    echo "sh tar -czvf node_modules.tar.gz node_modules"
-                    echo "albBuild.veraCodeScannj(VeraAppid, AbortOnFail, VeraAppName)"
-                }
-            }
-        }
-        
-        /* stage('Docker build image') {
-            steps {
-                script {
-                    echo "dockerImage = albBuild.buildDockerTaggedImage(registry, registryRepo, dockerfile)"
-                }
-            }
-        } */
-
-
 		stage('Docker build image and login to docker hub') {
 
 			steps {
@@ -89,29 +67,27 @@ pipeline {
 			}
 		}
 
-		stage('Push image to Dockerhub') {
+/*
+	        stage('Docker push image to Dockerhub') {
+       		     steps {
+               		     sh 'docker push caved00/a-team_repo01:latest'
+            		}
+        	}
+*/
 
+        	stage('Twistlock Analysis') {
+            		steps {
+                		script {
+                    			echo "albBuild.twistscanDockerImage(imageURI, loglevel)"
+                		}
+            		}
+        	}
+    
+		stage('Push image to Dockerhub') {
 			steps {
 				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
-
-
-/*        stage('Docker push image to Dockerhub') {
-            steps {
-                    sh 'docker push caved00/a-team_repo01:latest'
-            }
-        }
-*/
-
-        stage('Twistlock Analysis') {
-            steps {
-                script {
-                    echo "albBuild.twistscanDockerImage(imageURI, loglevel)"
-                }
-            }
-        }
-    
         
         
         /*
