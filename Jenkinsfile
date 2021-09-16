@@ -59,7 +59,7 @@ pipeline {
     
 		stage('Push image to Dockerhub') {
 			steps {
-               		     	echo 'sh 'docker push caved00/a-team_repo01:latest''
+               		     	echo 'sh docker push caved00/a-team_repo01:latest'
 				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
