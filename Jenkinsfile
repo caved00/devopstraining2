@@ -6,22 +6,6 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS=credentials('caved00')
-        /* registry = "caved00/a-team_repo01" 
-        registryCredential = 'caved00' 
-        dockerImage = '' 
-        registry              = "escoacrprod01.azurecr.io"
-        registryCredential      = 'acr_creds_esco_prod'
-        dockerfile              = 'Dockerfile'
-        registryRepo            = "/rcdo/rcdo-ant"
-        CommitId                = 'False'
-        imageURI                = "${registry}${registryRepo}:${env.BUILD_NUMBER}"
-        VeraAppid               = "rcdo-prod-${env.BUILD_NUMBER}"
-        VeraAppName             = "RCDO"
-        AbortOnFaile            = "false"
-        CompliancePolicy        = 'warn'
-        VulnerabilityPolicy     = 'warn'
-        RemoveImageOnPublish    = false
-        loglevel                = 'debug' */ 
     }
    
     stages {
@@ -60,20 +44,10 @@ pipeline {
         	}
         
 		stage('Docker build image and login to docker hub') {
-
 			steps {
 				sh 'docker build -t getting-started .'
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
-
-/*
-	        stage('Docker push image to Dockerhub') {
-       		     steps {
-               		     sh 'docker push caved00/a-team_repo01:latest'
-            		}
-        	}
-*/
 
         	stage('Twistlock Analysis') {
             		steps {
@@ -85,19 +59,9 @@ pipeline {
     
 		stage('Push image to Dockerhub') {
 			steps {
+               		     	echo 'sh 'docker push caved00/a-team_repo01:latest''
 				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
-        
-        
-        /*
-        post {
-            failure {
-                script {
-                    echo "albNotify.emailNotify()"
-                }
-            }
-        }
-        */
     }
 }
