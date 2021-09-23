@@ -9,7 +9,7 @@ pipeline {
     }
    
     stages {
-        	stage('Build, Test & SonarQube Analysis') {
+        	stage('Build, Test21 & SonarQube Analysis') {
             		steps {
                 		script {
                     			echo "${env.imageURI}"
