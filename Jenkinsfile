@@ -1,6 +1,6 @@
 pipeline {
         agent any
-/* test options {
+/* testing options {
         ansicolor('xterm')
     } */
 
