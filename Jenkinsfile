@@ -26,7 +26,7 @@ pipeline {
             		}
         	}
 	    
-        	stage('Testomg') {
+        	stage('Testing') {
             		steps {
                 		script {
                     			echo ""
@@ -59,11 +59,11 @@ pipeline {
 		}
 
         	stage('Twistlock Analysis') {
-            		steps {
+            	/*	steps {
                 		script {
                     			echo "albBuild.twistscanDockerImage(imageURI, loglevel)"
                 		}
-            		}
+            		} */
         	}
     
 		stage('Push image to Dockerhub') {
