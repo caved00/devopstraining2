@@ -26,7 +26,13 @@ pipeline {
             		}
         	}
 	    
-	    stage('testing')
+        	stage('Testomg') {
+            		steps {
+                		script {
+                    			echo ""
+                		}
+            		}
+        	}
 	
         
         	stage('SonarQube Quality Gate') {
