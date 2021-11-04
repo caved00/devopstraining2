@@ -1,3 +1,0 @@
-hostname
-pwd
-date
