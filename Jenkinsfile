@@ -10,11 +10,14 @@ pipeline {
    
     stages {
         	stage('Build Stage') {
-            		steps {
-                		script {
-                    			echo "albBuild.sonarMavenExec()"
-                		}
-            		} 
+            		        steps   {
+                                        sh 'mvn package'
+                	        }
+                              /*  post {
+                                        always {
+                                                junit 'target/gs-maven-reports/*.xml'
+                                        }
+                                }  */                
         	}
     }
 }
