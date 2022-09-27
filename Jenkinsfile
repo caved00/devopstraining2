@@ -11,8 +11,10 @@ pipeline {
     stages {
         	stage('Clone Repo') {
             		        steps   {
+                                        sh 'rm -rf "/var/lib/jenkins/workspace/test1/*"'
                                         sh 'git clone https://github.com/spring-guides/gs-maven.git'
-                                        sh 'mvn package /var/lib/jenkins/workspace/test1/*'
+                                        sh 'mvn package -f /var/lib/jenkins/workspace/test1/gs-maven/initial/pom.xml'
+                                      
                 	        }
                               /*  post {
                                         always {
