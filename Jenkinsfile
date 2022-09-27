@@ -9,8 +9,9 @@ pipeline {
     }
    
     stages {
-        	stage('Build Stage') {
+        	stage('Clone Repo') {
             		        steps   {
+                                        sh 'git clone https://github.com/spring-guides/gs-maven.git'
                                         sh 'mvn package'
                 	        }
                               /*  post {
