@@ -9,10 +9,9 @@ pipeline {
     }
    
     stages {
-        	stage('Build, Test21 & SonarQube Analysis') {
+        	stage('Build Stage') {
             		steps {
                 		script {
-                    			echo "${env.imageURI}"
                     			echo "albBuild.sonarMavenExec()"
                 		}
             		} 
