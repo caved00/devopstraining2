@@ -6,6 +6,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS=credentials('caved00')
+        PATH = "/var/lib/jenkins/workspace/test1/java-maven-junit5-example:$PATH"
     }
    
     stages {
@@ -13,13 +14,13 @@ pipeline {
             		        steps   {
                                         cleanWs()
                                         sh 'git clone https://github.com/bluetata/java-maven-junit5-example.git'
-                                        sh 'mvn package -f /home/ir00at/mavenbuild/java-maven-junit5-example/pom.xml'
+                                        sh 'mvn package'
                                       
                 	        }
                 } 
                 stage('Testing - JUnit testing') {
             		        steps   {
-                                        sh 'mvn test -f /var/lib/jenkins/workspace/test1/gs-maven/pom.xml'
+                                        sh 'mvn test -f /var/lib/jenkins/workspace/test1/java-maven-junit5-example/pom.xml'
                                       
                 	        }
                         
