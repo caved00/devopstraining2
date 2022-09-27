@@ -9,11 +9,17 @@ pipeline {
     }
    
     stages {
-        	stage('Clone Repo') {
+                stage('Build - Maven') {
             		        steps   {
                                         cleanWs()
-                                        sh 'git clone https://github.com/spring-guides/gs-maven.git'
+                                        sh 'git clone https://github.com/LableOrg/java-maven-junit-helloworld.git'
                                         sh 'mvn package -f /var/lib/jenkins/workspace/test1/gs-maven/initial/pom.xml'
+                                      
+                	        }
+                 
+                stage('Testing - JUnit testing') {
+            		        steps   {
+                                        sh 'mvn test -f /var/lib/jenkins/workspace/test1/gs-maven/'
                                       
                 	        }
                         
