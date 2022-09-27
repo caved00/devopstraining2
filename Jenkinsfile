@@ -12,7 +12,7 @@ pipeline {
     stages {
                 stage('Code checkout - GITHUB') {
             		        steps   {
-                                        git credentialsId: 'github', url: 'https://github.com/caved00/devopstraining2'                                   
+                                        git credentialsId: 'caved00', url: 'https://github.com/caved00/devopstraining2'                                   
                 	        }
                 }     
                 stage('Build - Maven') {
